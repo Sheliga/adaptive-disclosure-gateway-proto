@@ -34,7 +34,7 @@
         <div class="hero-copy">
           <p class="eyebrow" data-i18n="eyebrow">Privacidade antes da nuvem</p>
           <h1 data-i18n="heroTitle">Use IA sem entregar seus dados para ela.</h1>
-          <p class="lead" data-i18n="heroLead">Dados sensíveis são tratados localmente. Só o mínimo necessário cruza a fronteira de confiança.</p>
+          <p class="lead" data-i18n="heroLead">Dados sensíveis são tratados dentro do ambiente confiável antes de qualquer envio ao provedor externo. Só a representação necessária cruza a fronteira de confiança.</p>
           <div class="actions">
             <button class="btn primary" data-start-mode="example" data-i18n="tryExample">Testar com exemplo</button>
             <button class="btn secondary" data-start-mode="upload" data-i18n="useDocument">Usar meu documento</button>
@@ -47,9 +47,9 @@
           <div class="trust-zone local-zone">
             <div class="zone-heading">
               <span class="zone-icon" aria-hidden="true">⌂</span>
-              <div><b id="trustDemoTitle" data-i18n="yourEnvironment">Seu ambiente</b><small data-i18n="localOnly">Processamento local</small></div>
+              <div><b id="trustDemoTitle" data-i18n="yourEnvironment">Ambiente confiável</b><small data-i18n="localOnly">Processamento na infraestrutura protegida</small></div>
             </div>
-            <div class="sample-document" aria-label="Exemplo de transformações locais">
+            <div class="sample-document" aria-label="Exemplo de transformações no ambiente confiável">
               <div><span data-i18n="fieldName">Nome</span><code>Ana Souza</code><i aria-hidden="true">→</i><code class="protected">PERSON_A83C</code></div>
               <div><span>CPF</span><code>123.***.***-**</code><i aria-hidden="true">→</i><code class="removed">REMOVIDO</code></div>
               <div><span data-i18n="fieldSalary">Salário</span><code>R$ 7.450</code><i aria-hidden="true">→</i><code class="generalized">R$ 5–10 mil</code></div>
@@ -64,7 +64,7 @@
               <span class="zone-icon" aria-hidden="true">☁</span>
               <div><b data-i18n="externalModel">Modelo externo</b><small data-i18n="minimumOnly">Recebe apenas o necessário</small></div>
             </div>
-            <p class="safe-note"><span aria-hidden="true">✓</span> <span data-i18n="noRawData">Nome real e CPF não atravessam a fronteira.</span></p>
+            <p class="safe-note"><span aria-hidden="true">✓</span> <span data-i18n="noRawData">Nome real e CPF permanecem no ambiente confiável.</span></p>
           </div>
         </aside>
       </div>
@@ -129,7 +129,7 @@
         <p class="validation" id="inputValidation" role="status" aria-live="polite"></p>
         <div class="footer-actions">
           <button class="btn ghost" data-go="0" data-i18n="back">Voltar</button>
-          <button class="btn primary" id="analyzeBtn" data-i18n="analyze">Analisar localmente</button>
+          <button class="btn primary" id="analyzeBtn" data-i18n="analyze">Analisar no ambiente protegido</button>
         </div>
       </div>
     </section>
@@ -137,14 +137,14 @@
     <section class="screen" data-screen="2">
       <header class="section-head review-head">
         <p class="eyebrow" data-i18n="beforeSend">Antes do envio</p>
-        <h1 data-i18n="reviewTitle">Veja exatamente o que fica local e o que pode sair.</h1>
+        <h1 data-i18n="reviewTitle">Veja exatamente o que permanece no ambiente confiável e o que pode ser enviado.</h1>
         <p data-i18n="reviewLead">Nada foi enviado ao provedor externo. Esta é a sua chance de verificar a transformação.</p>
       </header>
 
-      <div class="comparison" aria-label="Comparação entre conteúdo local e conteúdo externo">
+      <div class="comparison" aria-label="Comparação entre conteúdo no ambiente confiável e conteúdo enviado ao provedor externo">
         <article class="data-column local-column">
           <header>
-            <div><span class="column-icon" aria-hidden="true">⌂</span><div><b data-i18n="staysLocal">Permanece local</b><small data-i18n="originalSynthetic">Original sintético</small></div></div>
+            <div><span class="column-icon" aria-hidden="true">⌂</span><div><b data-i18n="staysLocal">Permanece no ambiente confiável</b><small data-i18n="originalSynthetic">Original sintético</small></div></div>
             <span class="status local" data-i18n="privateStatus">Privado</span>
           </header>
           <dl class="data-list">
@@ -180,7 +180,7 @@
       </div>
 
       <div class="boundary-banner">
-        <div><span class="boundary-icon" aria-hidden="true">◇</span><div><b data-i18n="boundaryTitle">Fronteira de confiança verificada</b><small data-i18n="boundaryCopy">Nome real e CPF permanecem locais. Somente a representação protegida seria enviada.</small></div></div>
+        <div><span class="boundary-icon" aria-hidden="true">◇</span><div><b data-i18n="boundaryTitle">Fronteira de confiança verificada</b><small data-i18n="boundaryCopy">Nome real e CPF permanecem dentro da infraestrutura controlada. Somente a representação protegida seria enviada ao provedor externo.</small></div></div>
         <span class="status safe" data-i18n="nothingSent">Nada enviado ainda</span>
       </div>
 
@@ -202,14 +202,14 @@
 
       <article class="answer-surface">
         <div class="answer-label">
-          <div><b data-i18n="answer">Resposta final</b><small data-i18n="reconstructed">Após reconstrução local autorizada</small></div>
+          <div><b data-i18n="answer">Resposta final</b><small data-i18n="reconstructed">Após reconstrução no ambiente confiável</small></div>
           <span class="status safe" data-i18n="protectedStatus">Protegido</span>
         </div>
         <p class="answer-text" data-i18n="answerText">O departamento de Engenharia apresenta a maior faixa salarial entre os dados analisados. Identificadores pessoais não foram necessários para a comparação e não foram expostos na análise externa.</p>
 
         <div class="privacy-summary" aria-label="Resumo de privacidade">
           <div><b>0</b><span data-i18n="identifiersExposed">identificadores pessoais expostos</span></div>
-          <div><b>2</b><span data-i18n="protectedCount">valores protegidos localmente</span></div>
+          <div><b>2</b><span data-i18n="protectedCount">valores protegidos no ambiente confiável</span></div>
           <div><b>1</b><span data-i18n="generalCount">valor generalizado</span></div>
         </div>
 
@@ -249,7 +249,7 @@ Department: Engenharia</pre>
     <div class="strategy-grid">
       <article><code>B0</code><h3 data-i18n="b0">Direto</h3><p data-i18n="b0p">Envia o conteúdo sem proteção do gateway.</p></article>
       <article><code>B1</code><h3 data-i18n="b1">Sanitização estática</h3><p data-i18n="b1p">Aplica regras fixas de proteção.</p></article>
-      <article><code>B2</code><h3 data-i18n="b2">Pseudonimização reversível</h3><p data-i18n="b2p">Substitui valores localmente e permite reconstrução.</p></article>
+      <article><code>B2</code><h3 data-i18n="b2">Pseudonimização reversível</h3><p data-i18n="b2p">Substitui valores dentro do ambiente confiável e permite reconstrução.</p></article>
       <article><code>B3</code><h3 data-i18n="b3">Sensível à tarefa</h3><p data-i18n="b3p">Procura a menor exposição útil para a tarefa.</p></article>
       <article class="recommended-card"><span class="tag" data-i18n="recommended">Recomendado</span><code>B4</code><h3 data-i18n="b4">Governado por política</h3><p data-i18n="b4p">A política limita primeiro; a tarefa minimiza dentro do permitido.</p></article>
     </div>
