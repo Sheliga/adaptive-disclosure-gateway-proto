@@ -12,6 +12,7 @@ let current=0
 let mode='example'
 let activeModal=null
 let modalTrigger=null
+let selectedFile=null
 const $=(s,r=document)=>r.querySelector(s)
 const $$=(s,r=document)=>[...r.querySelectorAll(s)]
 
@@ -78,6 +79,7 @@ function showFile(name,meta){
 
 function setFile(file){
   if(!file)return
+  selectedFile=file
   const kb=Math.max(1,Math.round(file.size/1024))
   showFile(file.name,`${file.type||(lang==='pt'?'arquivo':'file')} · ${kb} KB · ${lang==='pt'?'pronto para análise':'ready to analyze'}`)
 }
@@ -139,7 +141,7 @@ $$('.segment').forEach(tab=>{
   })
 })
 $('#fileInput').addEventListener('change',e=>{setFile(e.target.files[0]);$('#inputValidation').textContent=''})
-$('#removeFile').addEventListener('click',()=>{$('#fileCard').hidden=true;$('#fileInput').value=''})
+$('#removeFile').addEventListener('click',()=>{selectedFile=null;$('#fileCard').hidden=true;$('#fileInput').value=''})
 const drop=$('#dropzone')
 ;['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.style.borderColor='var(--brand)'}))
 ;['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.style.borderColor=''}))
@@ -147,7 +149,7 @@ drop.addEventListener('drop',e=>{setFile(e.dataTransfer.files[0]);$('#inputValid
 $('#analyzeBtn').addEventListener('click',()=>{
   const message=$('#inputValidation')
   message.textContent=''
-  if(mode==='upload'&&!$('#fileInput').files.length){message.textContent=copy[lang].validationFile;$('#fileInput').focus();return}
+  if(mode==='upload'&&!selectedFile){message.textContent=copy[lang].validationFile;$('#fileInput').focus();return}
   if(mode==='paste'&&!$('#contentText').value.trim()){message.textContent=copy[lang].validationText;$('#contentText').focus();return}
   if(!$('#taskText').value.trim()){message.textContent=copy[lang].validationTask;$('#taskText').focus();return}
   go(2)
