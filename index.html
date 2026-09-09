@@ -4,13 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Protótipo navegável da interface do Adaptive Disclosure Gateway.">
-  <title>Adaptive Disclosure Gateway — Protótipo</title>
+  <title>Adaptive Disclosure Gateway — Protótipo UX v3</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="app">
   <header class="topbar">
-    <button class="brand" data-go="0" aria-label="Início"><span class="logo">◇</span><span>Adaptive Disclosure Gateway</span></button>
+    <button class="brand" data-go="0" aria-label="Início">
+      <span class="logo" aria-hidden="true">◇</span>
+      <span>Adaptive Disclosure Gateway</span>
+    </button>
     <nav class="toolbar" aria-label="Preferências">
       <button class="control" id="langBtn" type="button">PT-BR</button>
       <button class="control icon" id="themeBtn" type="button" aria-label="Alternar tema">☾</button>
@@ -18,137 +21,267 @@
   </header>
 
   <main class="shell">
-    <ol class="stepper" aria-label="Etapas do teste">
-      <li class="step active" data-step="0"><span>1</span><b data-i18n="step1">Entender</b></li>
-      <li class="connector"></li>
-      <li class="step" data-step="1"><span>2</span><b data-i18n="step2">Documento</b></li>
-      <li class="connector"></li>
-      <li class="step" data-step="2"><span>3</span><b data-i18n="step3">Revisar</b></li>
-      <li class="connector"></li>
-      <li class="step" data-step="3"><span>4</span><b data-i18n="step4">Resultado</b></li>
+    <ol class="stepper is-hidden" id="stepper" aria-label="Etapas do teste">
+      <li class="step active" data-step="1"><span>1</span><b data-i18n="stepPrepare">Preparar</b></li>
+      <li class="connector" aria-hidden="true"></li>
+      <li class="step" data-step="2"><span>2</span><b data-i18n="stepReview">Revisar</b></li>
+      <li class="connector" aria-hidden="true"></li>
+      <li class="step" data-step="3"><span>3</span><b data-i18n="stepResult">Resultado</b></li>
     </ol>
 
     <section class="screen active" data-screen="0">
       <div class="hero">
         <div class="hero-copy">
           <p class="eyebrow" data-i18n="eyebrow">Privacidade antes da nuvem</p>
-          <h1 data-i18n="heroTitle">Use modelos de IA sem enviar mais dados do que o necessário.</h1>
-          <p class="lead" data-i18n="heroLead">O gateway analisa o conteúdo localmente, controla o que pode sair do ambiente confiável e reconstrói a resposta quando necessário.</p>
+          <h1 data-i18n="heroTitle">Use IA sem entregar seus dados para ela.</h1>
+          <p class="lead" data-i18n="heroLead">Dados sensíveis são tratados localmente. Só o mínimo necessário cruza a fronteira de confiança.</p>
           <div class="actions">
-            <button class="btn primary" data-go="1" data-i18n="tryNow">Testar agora</button>
-            <button class="btn secondary" data-modal="methodModal" data-i18n="research">Entender a pesquisa</button>
+            <button class="btn primary" data-start-mode="example" data-i18n="tryExample">Testar com exemplo</button>
+            <button class="btn secondary" data-start-mode="upload" data-i18n="useDocument">Usar meu documento</button>
           </div>
+          <button class="link-button" data-modal="methodModal" data-i18n="research">Entender a pesquisa</button>
           <p class="prototype-note" data-i18n="prototypeNote">Protótipo de UX: nenhuma chamada externa real é feita nesta página.</p>
         </div>
-        <article class="concept-card">
-          <h2 data-i18n="howTitle">O que acontece com seus dados</h2>
-          <div class="flow">
-            <div class="flow-node"><span class="node-icon">⌁</span><b data-i18n="localAnalysis">Análise local</b><small data-i18n="localAnalysisP">Dados sensíveis são detectados antes da chamada externa.</small></div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-node external"><span class="node-icon">☁</span><b data-i18n="controlled">Divulgação controlada</b><small data-i18n="controlledP">Somente a representação permitida cruza a fronteira.</small></div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-node"><span class="node-icon">↩</span><b data-i18n="reconstruct">Reconstrução local</b><small data-i18n="reconstructP">A resposta retorna e pode ser reconstruída localmente.</small></div>
+
+        <aside class="trust-demo" aria-labelledby="trustDemoTitle">
+          <div class="trust-zone local-zone">
+            <div class="zone-heading">
+              <span class="zone-icon" aria-hidden="true">⌂</span>
+              <div><b id="trustDemoTitle" data-i18n="yourEnvironment">Seu ambiente</b><small data-i18n="localOnly">Processamento local</small></div>
+            </div>
+            <div class="sample-document" aria-label="Exemplo de transformações locais">
+              <div><span data-i18n="fieldName">Nome</span><code>Ana Souza</code><i aria-hidden="true">→</i><code class="protected">PERSON_A83C</code></div>
+              <div><span>CPF</span><code>123.***.***-**</code><i aria-hidden="true">→</i><code class="removed">REMOVIDO</code></div>
+              <div><span data-i18n="fieldSalary">Salário</span><code>R$ 7.450</code><i aria-hidden="true">→</i><code class="generalized">R$ 5–10 mil</code></div>
+            </div>
           </div>
-          <div class="privacy-callout">✓ <span data-i18n="privacyNote">O documento não precisa ser armazenado para executar o teste.</span></div>
-        </article>
+          <div class="trust-boundary" aria-label="Fronteira de confiança">
+            <span data-i18n="trustBoundary">Fronteira de confiança</span>
+            <i aria-hidden="true">→</i>
+          </div>
+          <div class="trust-zone external-zone">
+            <div class="zone-heading">
+              <span class="zone-icon" aria-hidden="true">☁</span>
+              <div><b data-i18n="externalModel">Modelo externo</b><small data-i18n="minimumOnly">Recebe apenas o necessário</small></div>
+            </div>
+            <p class="safe-note"><span aria-hidden="true">✓</span> <span data-i18n="noRawData">Nome real e CPF não atravessam a fronteira.</span></p>
+          </div>
+        </aside>
       </div>
     </section>
 
     <section class="screen" data-screen="1">
       <header class="section-head">
         <p class="eyebrow" data-i18n="newTest">Novo teste</p>
-        <h1 data-i18n="chooseTitle">O que você quer testar?</h1>
-        <p data-i18n="chooseLead">Use seu próprio arquivo, experimente um exemplo sintético ou cole um texto.</p>
+        <h1 data-i18n="prepareTitle">Prepare o conteúdo e diga o que precisa fazer.</h1>
+        <p data-i18n="prepareLead">Comece com dados sintéticos ou escolha outra forma de entrada.</p>
       </header>
 
-      <div class="panel">
-        <div class="choice-grid" role="radiogroup">
-          <button class="choice selected" data-mode="upload"><span class="choice-icon">⇧</span><b data-i18n="upload">Enviar meu arquivo</b><small data-i18n="uploadP">Para testar um documento seu.</small></button>
-          <button class="choice" data-mode="example"><span class="choice-icon">▤</span><b data-i18n="example">Usar um exemplo</b><small data-i18n="exampleP">Dados sintéticos preparados para demonstração.</small></button>
-          <button class="choice" data-mode="paste"><span class="choice-icon">¶</span><b data-i18n="paste">Colar texto</b><small data-i18n="pasteP">Para conteúdo curto e testes rápidos.</small></button>
+      <div class="workspace">
+        <div class="segmented" role="tablist" aria-label="Forma de entrada">
+          <button class="segment selected" id="tab-example" role="tab" aria-selected="true" aria-controls="panel-example" tabindex="0" data-mode="example" data-i18n="example">Exemplo</button>
+          <button class="segment" id="tab-upload" role="tab" aria-selected="false" aria-controls="panel-upload" tabindex="-1" data-mode="upload" data-i18n="upload">Arquivo</button>
+          <button class="segment" id="tab-paste" role="tab" aria-selected="false" aria-controls="panel-paste" tabindex="-1" data-mode="paste" data-i18n="paste">Texto</button>
         </div>
 
-        <div id="fileArea" class="input-area">
+        <div class="input-panel" id="panel-example" role="tabpanel" aria-labelledby="tab-example">
+          <div class="example-header">
+            <div>
+              <span class="input-kicker" data-i18n="syntheticData">Dados sintéticos</span>
+              <h2 data-i18n="exampleTitle">Exemplo de RH pronto para testar</h2>
+              <p data-i18n="exampleLead">Contém nome, CPF, salário e departamento fictícios para demonstrar diferentes proteções.</p>
+            </div>
+            <span class="status safe" data-i18n="recommended">Recomendado</span>
+          </div>
+          <div class="example-preview" aria-label="Resumo do exemplo sintético">
+            <span><b data-i18n="records">4 campos</b><small data-i18n="exampleFields">Nome · CPF · Salário · Departamento</small></span>
+            <span><b data-i18n="synthetic">Sintético</b><small data-i18n="noPersonalData">Sem dados pessoais reais</small></span>
+          </div>
+        </div>
+
+        <div class="input-panel" id="panel-upload" role="tabpanel" aria-labelledby="tab-upload" hidden>
           <label class="dropzone" id="dropzone">
             <input type="file" id="fileInput" accept=".txt,.md,.pdf,.docx,.xlsx,image/*">
-            <span class="upload-icon">⇧</span>
+            <span class="upload-icon" aria-hidden="true">⇧</span>
             <strong data-i18n="drop">Arraste um arquivo aqui ou clique para escolher</strong>
-            <small data-i18n="formats">TXT e MD no primeiro backend · PDF, DOCX, XLSX e imagens entram pela ingestão estruturada</small>
+            <small data-i18n="formats">TXT, MD, PDF, DOCX, XLSX e imagens</small>
           </label>
-          <div class="file-card" id="fileCard" hidden><span>▧</span><div><b id="fileName">documento.txt</b><small id="fileMeta">TXT · pronto para análise</small></div><button class="text-btn" id="removeFile" type="button">×</button></div>
+          <div class="file-card" id="fileCard" hidden>
+            <span aria-hidden="true">▧</span>
+            <div><b id="fileName">documento.txt</b><small id="fileMeta">pronto para análise</small></div>
+            <button class="icon-button" id="removeFile" type="button" aria-label="Remover arquivo">×</button>
+          </div>
         </div>
 
-        <div id="pasteArea" class="input-area" hidden>
-          <label class="field"><span data-i18n="content">Conteúdo</span><textarea id="contentText" rows="8" placeholder="Cole aqui o conteúdo que deseja testar..."></textarea></label>
+        <div class="input-panel" id="panel-paste" role="tabpanel" aria-labelledby="tab-paste" hidden>
+          <label class="field compact-field">
+            <span data-i18n="content">Conteúdo</span>
+            <textarea id="contentText" rows="8" placeholder="Cole aqui o conteúdo que deseja testar..."></textarea>
+          </label>
         </div>
 
         <label class="field task-field">
           <span data-i18n="taskLabel">O que você quer que o modelo faça?</span>
           <textarea id="taskText" rows="4" placeholder="Ex.: compare as faixas salariais por departamento sem expor identificadores pessoais."></textarea>
-          <small data-i18n="taskHint">Escreva naturalmente. Você não precisa conhecer políticas, categorias ou B0–B4.</small>
+          <small data-i18n="taskHint">Escreva naturalmente. O gateway decide como minimizar a exposição para essa tarefa.</small>
         </label>
 
-        <details class="advanced"><summary data-i18n="advanced">Opções avançadas</summary><div class="advanced-body"><span data-i18n="advancedP">Modo recomendado: governado por política. Estratégias e provider ficam escondidos no fluxo principal.</span><label><span data-i18n="mode">Estratégia</span><select><option data-i18n="governed">Governado por política — recomendado</option><option>B0 — Direct</option><option>B1 — Static Sanitization</option><option>B2 — Reversible Pseudonymization</option><option>B3 — Task-aware</option></select></label></div></details>
-
-        <div class="footer-actions"><button class="btn secondary" data-go="0" data-i18n="back">Voltar</button><button class="btn primary" id="analyzeBtn" data-go="2" data-i18n="analyze">Analisar localmente</button></div>
+        <p class="validation" id="inputValidation" role="status" aria-live="polite"></p>
+        <div class="footer-actions">
+          <button class="btn ghost" data-go="0" data-i18n="back">Voltar</button>
+          <button class="btn primary" id="analyzeBtn" data-i18n="analyze">Analisar localmente</button>
+        </div>
       </div>
     </section>
 
     <section class="screen" data-screen="2">
-      <header class="section-head">
+      <header class="section-head review-head">
         <p class="eyebrow" data-i18n="beforeSend">Antes do envio</p>
-        <h1 data-i18n="reviewTitle">Revise o que vai sair do seu ambiente</h1>
-        <p data-i18n="reviewLead">Nada foi enviado ao provedor externo. Confira as decisões antes de continuar.</p>
+        <h1 data-i18n="reviewTitle">Veja exatamente o que fica local e o que pode sair.</h1>
+        <p data-i18n="reviewLead">Nada foi enviado ao provedor externo. Esta é a sua chance de verificar a transformação.</p>
       </header>
 
-      <div class="review-grid">
-        <article class="document-preview">
-          <header><div><b data-i18n="protectedPreview">Prévia protegida</b><small data-i18n="previewSub">Representação preparada para a chamada externa</small></div><span class="status local" data-i18n="notSent">Ainda não enviado</span></header>
-          <pre>Employee: <mark class="pseudo">PSEUDO-employee-a83c…</mark>
-CPF: <mark class="removed">[REMOVIDO]</mark>
-Salary: <mark class="generalized">R$ 5.000–10.000</mark>
-Department: <mark class="preserved">Engineering</mark></pre>
-          <div class="legend"><span class="pill pseudo-dot" data-i18n="pseudonymized">Pseudonimizado</span><span class="pill remove-dot" data-i18n="removedLabel">Removido</span><span class="pill general-dot" data-i18n="generalizedLabel">Generalizado</span><span class="pill preserve-dot" data-i18n="preservedLabel">Mantido</span></div>
-          <div class="boundary"><b data-i18n="boundary">Fronteira de confiança:</b> <span data-i18n="boundaryP">nome real e CPF permanecem locais. O provedor receberia apenas a representação acima.</span></div>
+      <div class="comparison" aria-label="Comparação entre conteúdo local e conteúdo externo">
+        <article class="data-column local-column">
+          <header>
+            <div><span class="column-icon" aria-hidden="true">⌂</span><div><b data-i18n="staysLocal">Permanece local</b><small data-i18n="originalSynthetic">Original sintético</small></div></div>
+            <span class="status local" data-i18n="privateStatus">Privado</span>
+          </header>
+          <dl class="data-list">
+            <div><dt data-i18n="fieldName">Nome</dt><dd>Ana Souza</dd></div>
+            <div><dt>CPF</dt><dd>123.456.789-00</dd></div>
+            <div><dt data-i18n="fieldSalary">Salário</dt><dd>R$ 7.450</dd></div>
+            <div><dt data-i18n="fieldDepartment">Departamento</dt><dd>Engenharia</dd></div>
+          </dl>
         </article>
 
-        <aside class="decision-card">
-          <h2 data-i18n="why">Por que essas decisões?</h2>
-          <div class="decision"><span class="decision-symbol pseudo-bg">↔</span><div><b data-i18n="nameProtected">Nome substituído</b><small data-i18n="nameReason">A identidade real não é necessária para a tarefa.</small></div></div>
-          <div class="decision"><span class="decision-symbol remove-bg">−</span><div><b data-i18n="cpfRemoved">CPF removido</b><small data-i18n="cpfReason">Não contribui para a comparação solicitada.</small></div></div>
-          <div class="decision"><span class="decision-symbol general-bg">≈</span><div><b data-i18n="salaryGeneral">Salário generalizado</b><small data-i18n="salaryReason">A faixa preserva contexto suficiente para a tarefa.</small></div></div>
-          <div class="decision"><span class="decision-symbol preserve-bg">✓</span><div><b data-i18n="deptKept">Departamento mantido</b><small data-i18n="deptReason">É necessário para produzir a comparação.</small></div></div>
-          <p class="info" data-i18n="changeTask">Se a tarefa mudar, as decisões de divulgação também podem mudar.</p>
-        </aside>
+        <div class="transform-column" aria-label="Transformações aplicadas">
+          <div class="transform-heading"><span data-i18n="transformations">Transformações</span><small data-i18n="taskAware">Definidas pela necessidade da tarefa</small></div>
+          <div class="transform-list">
+            <div><span class="transform-symbol pseudo-bg" aria-hidden="true">↔</span><b data-i18n="pseudoAction">Pseudonimizar</b><small data-i18n="nameReason">Identidade real não é necessária</small></div>
+            <div><span class="transform-symbol remove-bg" aria-hidden="true">−</span><b data-i18n="removeAction">Remover</b><small data-i18n="cpfReason">CPF não contribui para a tarefa</small></div>
+            <div><span class="transform-symbol general-bg" aria-hidden="true">≈</span><b data-i18n="generalizeAction">Generalizar</b><small data-i18n="salaryReason">A faixa preserva contexto suficiente</small></div>
+            <div><span class="transform-symbol preserve-bg" aria-hidden="true">✓</span><b data-i18n="preserveAction">Manter</b><small data-i18n="deptReason">Necessário para comparar departamentos</small></div>
+          </div>
+        </div>
+
+        <article class="data-column external-column">
+          <header>
+            <div><span class="column-icon" aria-hidden="true">☁</span><div><b data-i18n="modelReceives">Modelo recebe</b><small data-i18n="protectedRepresentation">Representação protegida</small></div></div>
+            <span class="status pending" data-i18n="notSent">Não enviado</span>
+          </header>
+          <dl class="data-list protected-list">
+            <div><dt data-i18n="fieldName">Nome</dt><dd><mark class="pseudo">PERSON_A83C</mark></dd></div>
+            <div><dt>CPF</dt><dd><mark class="removed">[REMOVIDO]</mark></dd></div>
+            <div><dt data-i18n="fieldSalary">Salário</dt><dd><mark class="generalized">R$ 5.000–10.000</mark></dd></div>
+            <div><dt data-i18n="fieldDepartment">Departamento</dt><dd><mark class="preserved">Engenharia</mark></dd></div>
+          </dl>
+        </article>
       </div>
-      <div class="footer-actions"><button class="btn secondary" data-go="1" data-i18n="edit">Editar</button><button class="btn primary" data-go="3" data-i18n="confirm">Confirmar e enviar ao modelo</button></div>
+
+      <div class="boundary-banner">
+        <div><span class="boundary-icon" aria-hidden="true">◇</span><div><b data-i18n="boundaryTitle">Fronteira de confiança verificada</b><small data-i18n="boundaryCopy">Nome real e CPF permanecem locais. Somente a representação protegida seria enviada.</small></div></div>
+        <span class="status safe" data-i18n="nothingSent">Nada enviado ainda</span>
+      </div>
+
+      <div class="footer-actions outside-actions">
+        <button class="btn ghost" data-go="1" data-i18n="edit">Editar</button>
+        <button class="btn primary" data-go="3" data-i18n="confirm">Confirmar e enviar ao modelo</button>
+      </div>
     </section>
 
     <section class="screen" data-screen="3">
-      <header class="section-head result-head"><span class="success">✓</span><p class="eyebrow" data-i18n="done">Concluído</p><h1 data-i18n="resultTitle">Resposta pronta, com proteção aplicada</h1><p data-i18n="resultLead">A chamada externa usou somente a representação revisada. A resposta retornou ao ambiente local.</p></header>
-      <div class="result-grid">
-        <article class="answer-card">
-          <div class="answer-label"><div><b data-i18n="answer">Resposta final</b><small data-i18n="reconstructed">Após reconstrução local autorizada</small></div><span class="status safe" data-i18n="safe">Protegido</span></div>
-          <p data-i18n="answerText">O departamento de Engenharia apresenta a maior faixa salarial entre os dados analisados. Identificadores pessoais não foram necessários para a comparação e não foram expostos na análise externa.</p>
-          <div class="metrics"><div><b>2</b><span data-i18n="protectedCount">itens protegidos localmente</span></div><div><b>1</b><span data-i18n="generalCount">valor generalizado</span></div><div><b>1</b><span data-i18n="neededCount">campo mantido por necessidade</span></div></div>
-          <div class="actions result-actions"><button class="btn secondary" data-modal="compareModal" data-i18n="compare">Comparar estratégias</button><button class="btn secondary" data-modal="technicalModal" data-i18n="technical">Ver detalhes técnicos</button></div>
-        </article>
-        <aside class="side-stack">
-          <article class="mini-card"><h3 data-i18n="journey">Caminho dos dados</h3><div class="journey"><span>⌂ <b data-i18n="local">Local</b></span><i>→</i><span>☁ <b data-i18n="external">Provedor</b></span><i>→</i><span>⌂ <b data-i18n="local2">Local</b></span></div><p class="ok">✓ <span data-i18n="boundaryOk">Fronteira respeitada</span></p></article>
-          <article class="mini-card"><h3 data-i18n="summary">Proteções aplicadas</h3><ul><li data-i18n="noCpf">CPF não saiu do ambiente local</li><li data-i18n="namePseudo">Nome enviado como pseudônimo</li><li data-i18n="salaryRange">Salário enviado em faixa</li></ul></article>
-          <article class="mini-card"><h3 data-i18n="currentMode">Modo atual</h3><b data-i18n="governedShort">Governado por política</b><small data-i18n="recommended">Recomendado para a demonstração</small></article>
-        </aside>
+      <header class="result-header">
+        <span class="success-icon" aria-hidden="true">✓</span>
+        <div>
+          <p class="eyebrow" data-i18n="done">Concluído</p>
+          <h1 data-i18n="resultTitle">Resposta pronta.</h1>
+          <p data-i18n="resultLead">A simulação externa usou somente a representação que você revisou.</p>
+        </div>
+      </header>
+
+      <article class="answer-surface">
+        <div class="answer-label">
+          <div><b data-i18n="answer">Resposta final</b><small data-i18n="reconstructed">Após reconstrução local autorizada</small></div>
+          <span class="status safe" data-i18n="protectedStatus">Protegido</span>
+        </div>
+        <p class="answer-text" data-i18n="answerText">O departamento de Engenharia apresenta a maior faixa salarial entre os dados analisados. Identificadores pessoais não foram necessários para a comparação e não foram expostos na análise externa.</p>
+
+        <div class="privacy-summary" aria-label="Resumo de privacidade">
+          <div><b>0</b><span data-i18n="identifiersExposed">identificadores pessoais expostos</span></div>
+          <div><b>2</b><span data-i18n="protectedCount">valores protegidos localmente</span></div>
+          <div><b>1</b><span data-i18n="generalCount">valor generalizado</span></div>
+        </div>
+
+        <details class="sent-details">
+          <summary data-i18n="seeSent">Ver exatamente o que seria enviado</summary>
+          <pre>Employee: PERSON_A83C
+CPF: [REMOVIDO]
+Salary: R$ 5.000–10.000
+Department: Engenharia</pre>
+        </details>
+      </article>
+
+      <div class="research-actions">
+        <div>
+          <b data-i18n="exploreResearch">Explorar a pesquisa</b>
+          <small data-i18n="researchActionsCopy">Compare estratégias ou consulte os metadados desta execução.</small>
+        </div>
+        <div class="actions">
+          <button class="btn secondary" data-modal="compareModal" data-i18n="compare">Comparar B0–B4</button>
+          <button class="btn secondary" data-modal="technicalModal" data-i18n="technical">Detalhes técnicos</button>
+        </div>
       </div>
-      <div class="footer-actions result-footer"><button class="btn secondary" data-go="1" data-i18n="newRun">Novo teste</button></div>
+
+      <div class="footer-actions result-footer">
+        <button class="btn ghost" data-start-mode="example" data-i18n="newRun">Novo teste</button>
+      </div>
     </section>
   </main>
 </div>
 
-<div class="modal" id="compareModal" aria-hidden="true"><div class="modal-card wide"><header><div><p class="eyebrow" data-i18n="researchView">Visão de pesquisa</p><h2 data-i18n="compareTitle">Como as estratégias mudam o que é divulgado</h2></div><button class="close" data-close>×</button></header><div class="strategy-grid"><article><code>B0</code><h3 data-i18n="b0">Direto</h3><p data-i18n="b0p">Envia o conteúdo sem proteção do gateway.</p></article><article><code>B1</code><h3 data-i18n="b1">Sanitização estática</h3><p data-i18n="b1p">Aplica regras fixas de proteção.</p></article><article><code>B2</code><h3 data-i18n="b2">Pseudonimização reversível</h3><p data-i18n="b2p">Substitui valores localmente e permite reconstrução.</p></article><article><code>B3</code><h3 data-i18n="b3">Sensível à tarefa</h3><p data-i18n="b3p">Procura a menor exposição útil para a tarefa.</p></article><article class="recommended"><span class="tag" data-i18n="recommendedTag">Recomendado</span><code>B4</code><h3 data-i18n="b4">Governado por política</h3><p data-i18n="b4p">A política limita primeiro; a tarefa minimiza dentro do permitido.</p></article></div></div></div>
+<div class="modal" id="compareModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="compareTitle">
+  <div class="modal-card wide" tabindex="-1">
+    <header>
+      <div><p class="eyebrow" data-i18n="researchView">Visão de pesquisa</p><h2 id="compareTitle" data-i18n="compareTitle">Como as estratégias mudam o que é divulgado</h2></div>
+      <button class="icon-button close" data-close aria-label="Fechar">×</button>
+    </header>
+    <div class="strategy-grid">
+      <article><code>B0</code><h3 data-i18n="b0">Direto</h3><p data-i18n="b0p">Envia o conteúdo sem proteção do gateway.</p></article>
+      <article><code>B1</code><h3 data-i18n="b1">Sanitização estática</h3><p data-i18n="b1p">Aplica regras fixas de proteção.</p></article>
+      <article><code>B2</code><h3 data-i18n="b2">Pseudonimização reversível</h3><p data-i18n="b2p">Substitui valores localmente e permite reconstrução.</p></article>
+      <article><code>B3</code><h3 data-i18n="b3">Sensível à tarefa</h3><p data-i18n="b3p">Procura a menor exposição útil para a tarefa.</p></article>
+      <article class="recommended-card"><span class="tag" data-i18n="recommended">Recomendado</span><code>B4</code><h3 data-i18n="b4">Governado por política</h3><p data-i18n="b4p">A política limita primeiro; a tarefa minimiza dentro do permitido.</p></article>
+    </div>
+  </div>
+</div>
 
-<div class="modal" id="technicalModal" aria-hidden="true"><div class="modal-card"><header><div><p class="eyebrow" data-i18n="technicalView">Detalhes técnicos</p><h2 data-i18n="technicalTitle">Metadados desta execução</h2></div><button class="close" data-close>×</button></header><dl class="tech-list"><div><dt>Treatment</dt><dd>B4 · Policy-governed</dd></div><div><dt>Policy</dt><dd>hr-v2</dd></div><div><dt>Provider</dt><dd>FakeProvider · modo demonstrativo</dd></div><div><dt>Disclosure</dt><dd>REMOVE · PSEUDONYMIZE · GENERALIZE · PRESERVE</dd></div><div><dt>Reconstruction</dt><dd>authorized / completed</dd></div><div><dt>Prototype</dt><dd>UI only · no backend call</dd></div></dl></div></div>
+<div class="modal" id="technicalModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="technicalTitle">
+  <div class="modal-card" tabindex="-1">
+    <header>
+      <div><p class="eyebrow" data-i18n="technicalView">Detalhes técnicos</p><h2 id="technicalTitle" data-i18n="technicalTitle">Metadados desta execução</h2></div>
+      <button class="icon-button close" data-close aria-label="Fechar">×</button>
+    </header>
+    <dl class="tech-list">
+      <div><dt>Treatment</dt><dd>B4 · Policy-governed</dd></div>
+      <div><dt>Policy</dt><dd>hr-v2</dd></div>
+      <div><dt>Provider</dt><dd>FakeProvider · modo demonstrativo</dd></div>
+      <div><dt>Disclosure</dt><dd>REMOVE · PSEUDONYMIZE · GENERALIZE · PRESERVE</dd></div>
+      <div><dt>Reconstruction</dt><dd>authorized / completed</dd></div>
+      <div><dt>Prototype</dt><dd>UI only · no backend call</dd></div>
+    </dl>
+  </div>
+</div>
 
-<div class="modal" id="methodModal" aria-hidden="true"><div class="modal-card"><header><div><p class="eyebrow" data-i18n="aboutResearch">Sobre a pesquisa</p><h2 data-i18n="aboutTitle">O que este protótipo procura demonstrar</h2></div><button class="close" data-close>×</button></header><p class="modal-copy" data-i18n="aboutText">A pesquisa estuda como diferentes estratégias de divulgação controlam a exposição de dados sensíveis sem perder a utilidade necessária para uma tarefa. A experiência principal esconde a complexidade; comparação B0–B4 e metadados permanecem disponíveis sob demanda.</p></div></div>
+<div class="modal" id="methodModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+  <div class="modal-card" tabindex="-1">
+    <header>
+      <div><p class="eyebrow" data-i18n="aboutResearch">Sobre a pesquisa</p><h2 id="aboutTitle" data-i18n="aboutTitle">O que este protótipo procura demonstrar</h2></div>
+      <button class="icon-button close" data-close aria-label="Fechar">×</button>
+    </header>
+    <p class="modal-copy" data-i18n="aboutText">A pesquisa estuda como diferentes estratégias de divulgação controlam a exposição de dados sensíveis sem perder a utilidade necessária para uma tarefa. A experiência principal esconde a complexidade; comparação B0–B4 e metadados ficam disponíveis sob demanda.</p>
+  </div>
+</div>
 
 <script src="app.js"></script>
 </body>
